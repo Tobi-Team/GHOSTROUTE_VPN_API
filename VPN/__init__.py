@@ -23,7 +23,9 @@ app.add_middleware(
 
 from VPN import models
 from database import engine
-models.Base.metadata.create_all(bind=engine)
+
+# to not create any model/table that will affect the main model/table
+# models.Base.metadata.create_all(bind=engine)
 
 
 from VPN import (
