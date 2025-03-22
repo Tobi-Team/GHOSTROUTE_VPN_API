@@ -20,14 +20,6 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-
-from VPN import models
-from database import engine
-
-# to not create any model/table that will affect the main model/table
-# models.Base.metadata.create_all(bind=engine)
-
-
 from VPN import (
     routes, pydantic_models,
     helper
