@@ -22,5 +22,6 @@ app.add_middleware(
 
 from VPN import (
     routes, pydantic_models,
-    helper
+    helper,
+    servers_routes
 )
