@@ -2,4 +2,4 @@
 
 source vpn_env/bin/activate
 # pip install -r requirements.txt
-uvicorn VPN:app --reload
+uvicorn VPN:app --host 0.0.0.0 --port 8000 --reload
