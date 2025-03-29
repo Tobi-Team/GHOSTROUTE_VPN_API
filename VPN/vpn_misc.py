@@ -3,8 +3,8 @@
 SERVER_LIST = [
     "64.20.51.206",
     #
-    "68.183.118.41", "157.245.85.1",
-    "167.99.220.220"
+    "68.183.118.41", "142.93.82.168",
+    "165.232.86.201"
 ]
 
 SERVER_DICT = {
@@ -26,16 +26,16 @@ SERVER_DICT = {
         "location": "North Bergen, United States",
         "price": "999.99"
     },
-    "167.99.220.220": {
+    "165.232.86.201": {
         "type": "public",
         "hosting": "droplet",
         "location": "Amsterdam, Netherlands",
         "price": "999.99"
     },
-    "157.245.85.1": {
+    "142.93.82.168": {
         "type": "public",
         "hosting": "droplet",
-        "location": "New York, United States",
+        "location": "San Francisco, United States",
         "price": "999.99"
     },
 }
