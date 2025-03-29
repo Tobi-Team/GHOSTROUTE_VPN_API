@@ -1,6 +1,10 @@
 from VPN import app
 from fastapi import status, Depends, HTTPException, Form
 
+
+from VPN.pydantic_models import (
+    select_server_type
+)
 from VPN.vpn_misc import (
     SERVER_LIST, SERVER_DICT
 )
@@ -10,25 +14,42 @@ from VPN.vpn_misc import (
 # get all public servers + 90%+ speed 
 
 
-@app.get("/server/get_all_servers", status_code=status.HTTP_200_OK)
-@app.get("/server/get_all_servers/", status_code=status.HTTP_200_OK)
-def get_all_servers():
+@app.post("/server/get_all_servers", status_code=status.HTTP_200_OK)
+@app.post("/server/get_all_servers/", status_code=status.HTTP_200_OK)
+def get_all_servers(data: select_server_type):
     server_list = SERVER_LIST
     server_obj = SERVER_DICT
 
     server_list_return = []
     server_obj_return = {}
-    try:
-        for item in server_list:
-            if item in server_obj:
-                server_list_return.append(item)
-                server_obj_return["".format(item)] = server_obj[item]
-            else:
-                pass
-    except Exception as e:
-        raise
-        raise HTTPException(status_code=500, detail={"err": str(e)})
-
+    if (data.server_type is None) or (data.server_type == ""):
+        try:
+            for item in server_list:
+                if item in server_obj:
+                    # if item if found, apend to list and add to object
+                    server_list_return.append(item)
+                    server_obj_return[item] = server_obj[item]
+        except Exception as e:
+            raise
+            raise HTTPException(status_code=500, detail={"err": str(e)})
+    elif data.server_type == "public":
+        try:
+            for item in server_list:
+                if (item in server_obj) and (server_obj[item]["type"] == "public"):
+                    server_list_return.append(item)
+                    server_obj_return[item] = server_obj[item]
+        except Exception as e:
+            raise
+            raise HTTPException(status_code=500, detail={"err": str(e)})
+    elif data.server_type == "private":
+        try:
+            for item in server_list:
+                if (item in server_obj) and (server_obj[item]["type"] == "private"):
+                    server_list_return.append(item)
+                    server_obj_return[item] = server_obj[item]
+        except Exception as e:
+            raise
+            raise HTTPException(status_code=500, detail={"err": str(e)})
     return {
         "statusCode": 200,
         "status": True,
